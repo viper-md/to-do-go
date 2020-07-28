@@ -6,7 +6,7 @@ import (
 )
 
 // GetAllTodos list
-func GetAllTodos(todo *Todo) (err error) {
+func GetAllTodos(todo *[]Todo) (err error) {
 	if err := database.DB.Find(todo).Error; err != nil {
 		return err
 	}
