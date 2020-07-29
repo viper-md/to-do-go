@@ -13,6 +13,8 @@ import (
 var err error
 
 func main() {
+	// db, err := gorm.Open("mysql", database.DbURL(database.BuildDBConfig()))
+	// connection.NewDB(db)
 	database.DB, err = gorm.Open("mysql", database.DbURL(database.BuildDBConfig()))
 	if err != nil {
 		fmt.Println("-----------------> database status", err)

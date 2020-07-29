@@ -2,8 +2,29 @@ package todo
 
 import (
 	_ "github.com/go-sql-driver/mysql" // sql dialect
+	"github.com/jinzhu/gorm"
 	"github.com/mukul-dev/to-do-app/pkg/database"
 )
+
+// Repo db
+type Repo struct {
+	DB *gorm.DB
+}
+
+// NewRepo nac
+func NewRepo() *Repo {
+	return &Repo{
+		DB: database.DB,
+	}
+}
+
+// Create as
+func (r *Repo) Create(todo *Todo) error {
+	if err := database.DB.Create(todo).Error; err != nil {
+		return err
+	}
+	return nil
+}
 
 // GetAllTodos list
 func GetAllTodos(todo *[]Todo) (err error) {

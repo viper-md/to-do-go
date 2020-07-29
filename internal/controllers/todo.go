@@ -1,11 +1,17 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mukul-dev/to-do-app/internal/app/todo"
+)
+
+// define repo core and service
+var (
+	repo    = todo.NewRepo()
+	core    = todo.NewCore(repo)
+	service = todo.NewService(core)
 )
 
 // GetTodos fetch todos
@@ -21,16 +27,7 @@ func GetTodos(c *gin.Context) {
 
 // CreateTodo new
 func CreateTodo(c *gin.Context) {
-	var t todo.Todo
-	c.BindJSON(&t)
-	fmt.Println(t)
-	err := todo.CreateToDo(&t)
-	fmt.Println(t)
-	if err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-	} else {
-		c.JSON(http.StatusOK, t)
-	}
+	service.Create(c)
 }
 
 // GetATodo controllers
