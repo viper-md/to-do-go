@@ -27,7 +27,7 @@ func (r *Repo) Create(todo *Todo) error {
 }
 
 // GetAllTodos list
-func GetAllTodos(todo *[]Todo) (err error) {
+func (r *Repo) GetAllTodos(todo *[]Todo) error {
 	if err := database.DB.Find(todo).Error; err != nil {
 		return err
 	}
@@ -43,7 +43,7 @@ func CreateToDo(todo *Todo) (err error) {
 }
 
 //GetToDo by id
-func GetToDo(todo *Todo, id string) (err error) {
+func (r *Repo) GetToDo(todo *Todo, id string) error {
 	if err := database.DB.Where("id = ? ", id).First(todo).Error; err != nil {
 		return err
 	}
@@ -51,13 +51,13 @@ func GetToDo(todo *Todo, id string) (err error) {
 }
 
 // UpdateTodo save
-func UpdateTodo(todo *Todo, id string) (err error) {
+func (r *Repo) UpdateTodo(todo *Todo, id string) error {
 	database.DB.Save(todo)
 	return nil
 }
 
 // DeleteToDo by id
-func DeleteToDo(todo *Todo, id string) (err error) {
+func (r *Repo) DeleteToDo(todo *Todo, id string) error {
 	database.DB.Where("id = ? ", id).Delete(todo)
 	return nil
 }
